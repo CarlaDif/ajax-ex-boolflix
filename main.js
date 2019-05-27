@@ -4,6 +4,8 @@ $(document).ready(function(){
     var titolo_film = $('input').val();
     //richiamo la funzione stampaFilm
     stampaFilm(titolo_film);
+    //resetto il valore dell'input
+    $('input').val('');
   });
 
   function stampaFilm (titolo) {
@@ -21,22 +23,30 @@ $(document).ready(function(){
         var elenco_film = data.results;
         //resetto l'html prima di stampare i risultati del film cercato
         $('.schede-film').html('');
-        //ciclo all'interno dell'array composto dagli oggetti/film
-        for (var i = 0; i < elenco_film.length; i++) {
-          var film = elenco_film[i];
+        if (elenco_film.length == 0) {
+          Swal.fire({
+            type: 'error',
+            title: 'Oops...',
+            text: 'La ricerca non ha prodotto alcun risultato'
+          })
+        } else {
+          //ciclo all'interno dell'array composto dagli oggetti/film
+          for (var i = 0; i < elenco_film.length; i++) {
+            var film = elenco_film[i];
 
-          var source = $("#card-template").html();
-          var template_film = Handlebars.compile(source);
+            var source = $("#card-template").html();
+            var template_film = Handlebars.compile(source);
 
-          var film = {
-            'titolo': film.title,
-            'titolo_originale': film.original_title,
-            'lingua': film.original_language,
-            'voto': film.vote_average
+            var film = {
+              'titolo': film.title,
+              'titolo_originale': film.original_title,
+              'lingua': film.original_language,
+              'voto': film.vote_average
+            }
+            var html = template_film(film);
+            // console.log('Titolo: ' + titolo + ' Titolo originale: ' + titolo_originale + ' Lingua: ' + lingua +  ' Voto: ' + voto );
+            $('.schede-film').append(html);
           }
-          var html = template_film(film);
-          // console.log('Titolo: ' + titolo + ' Titolo originale: ' + titolo_originale + ' Lingua: ' + lingua +  ' Voto: ' + voto );
-          $('.schede-film').append(html);
         }
       },
       'error': function (){
