@@ -1,0 +1,33 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: sans-serif;
+}
+.container {
+  width: 80%;
+  height: 100vh;
+  margin: 0 auto;
+}
+.schede-film {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  overflow-y: scroll;
+}
+.card-film {
+  width: 250px;
+  height: 300px;
+  border: 1px solid #000;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 20px 10px;
+  line-height: 180%;
+}
+.card-film h3 {
+  margin: 15px 0;
+}

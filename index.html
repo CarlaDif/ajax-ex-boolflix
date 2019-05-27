@@ -3,12 +3,30 @@
   <head>
     <meta charset="utf-8">
     <title>Boolflix</title>
+    <!-- JQUERY -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- HANDLEBARS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js" charset="utf-8"></script>
+    <!-- STYLE CCS -->
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
   <input type="text" name="" value="" placeholder="Cerca il titolo di un film">
   <button type="button" name="button">Cerca</button>
+  <div class="container">
+    <div class="schede-film">
+
+    </div>
+  </div>
+
   <script src="main.js" charset="utf-8"></script>
+  <script id="card-template" type="text/x-handlebars-template">
+    <div class="card-film">
+      <h3>{{titolo}}</h3>
+      <p><span>Titolo originale: </span>{{titolo_originale}}</p>
+      <p><span>Lingua originale: </span>{{lingua}}</p>
+      <p><span>Voto: </span>{{voto}}</p>
+    </div>
+  </script>
   </body>
 </html>
