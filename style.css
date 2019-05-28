@@ -26,8 +26,14 @@ body {
   border-radius: 5px;
   margin: 10px;
   padding: 20px 10px;
-  line-height: 180%;
+  line-height: 150%;
 }
 .card-film h3 {
   margin: 15px 0;
+}
+.card-film p {
+  font-size: 16px;
+}
+.bold {
+  font-weight: bold;
 }

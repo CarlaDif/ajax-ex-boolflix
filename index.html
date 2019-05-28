@@ -7,14 +7,16 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <!-- HANDLEBARS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js" charset="utf-8"></script>
-    <!-- SWEETALERT2 -->
+    <!-- SWEET-ALERT2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <!-- FONT-AWESOME -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- STYLE CCS -->
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-  <input type="text" name="" value="" placeholder="Cerca il titolo di un film">
-  <button type="button" name="button">Cerca</button>
+  <input id="testo_ricerca" type="text" name="" value="" placeholder="Cerca il titolo di un film">
+  <button id="cerca" type="button" name="button">Cerca</button>
   <div class="container">
     <div class="schede-film">
 
@@ -25,9 +27,10 @@
   <script id="card-template" type="text/x-handlebars-template">
     <div class="card-film">
       <h3>{{titolo}}</h3>
-      <p><span>Titolo originale: </span>{{titolo_originale}}</p>
-      <p><span>Lingua originale: </span>{{lingua}}</p>
-      <p><span>Voto: </span>{{voto}}</p>
+      <p><span class="bold">Titolo originale: </span>{{titolo_originale}}</p>
+      <p><span class="bold">Lingua originale: </span>{{lingua}}</p>
+      <p><span class="bold">Voto: </span>{{voto}}</p>
+      <div class="stelle"></div>
     </div>
   </script>
   </body>
