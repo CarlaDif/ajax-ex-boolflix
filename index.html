@@ -11,12 +11,25 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- FONT-AWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- GOOGLE-FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <!-- STYLE CCS -->
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-  <input id="testo_ricerca" type="text" name="" value="" placeholder="Cerca il titolo di un film">
-  <button id="cerca" type="button" name="button">Cerca</button>
+    <div class="header">
+      <div class="header-left">
+        <div class="logo">
+          <h1>Boolflix</h1>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="container-ricerca">
+          <input id="testo_ricerca" type="text" name="" value="" placeholder="Cerca il titolo di un film">
+          <button id="cerca" type="button" name="button">Cerca</button>
+        </div>
+      </div>
+    </div>
   <div class="container">
     <div class="schede-film">
 
@@ -30,7 +43,7 @@
       <p><span class="bold">Titolo originale: </span>{{titolo_originale}}</p>
       <p><span class="bold">Lingua originale: </span>{{lingua}}</p>
       <p><span class="bold">Voto: </span>{{voto}}</p>
-      <div class="stelle"></div>
+      <div class="stelle">{{{stelle}}}</div>
     </div>
   </script>
   </body>

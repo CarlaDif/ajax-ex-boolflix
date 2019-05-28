@@ -53,36 +53,53 @@ $(document).ready(function(){
     for (var i = 0; i < elenco_film.length; i++) {
       var film = elenco_film[i];
 
-      var stelle_film = votoInStelle(film.vote_average);
       var film_context = {
         'titolo': film.title,
         'titolo_originale': film.original_title,
         'lingua': film.original_language,
         'voto': film.vote_average,
-        'stelle': stelle_film
+        'stelle': votoInStelle(film.vote_average)
       }
+
       var html = template_film(film_context);
       $('.schede-film').append(html);
-      $('.card-film').append(disegnaStelle(stelle_film, 1));
     }
+
   }
   function votoInStelle (number) {
+    //divido il voto per 2 e spitto il risultato,in modo da avere la cifra intera separata da quella decimale
     var half_number = ((number/2).toFixed(1)).split('.');
-    var star;
-
+    //variabile star --- numerica
+    var star = 0;
+    //variabile sotto forma di stringa per inserire il codice delle stelle piene
+    var stelle_disegnate = '';
+    //variabile empty_star --- numerica
+    var empty_star = 0;
+    //variabile sotto forma di stringa per inserire il codice delle stelle vuote
+    var stelle_vuote = '';
+    //se la cifra decimale è maggiore o uguale a 5
     if (half_number[1] >= 5) {
+      //arrotondo la cifra intera per eccesso
       star = (parseInt(half_number[0])) +1;
+      //calcolo la differenza tra il totale di stelle e le stelle piene
+      empty_star = (5 - star);
     } else {
-      star = half_number[0];
+      //altrimenti arrotondo la cifra intera per difetto
+      star = parseInt(half_number[0]);
+      //calcolo la differenza tra il totale di stelle e le stelle piene
+      empty_star = (5 - star);
     }
-    return star
-  }
-  function disegnaStelle (num_stelle, tot_stelle) {
-    for (var s = 0; s < tot_stelle; s++) {
-      for (var t = 0; t < num_stelle; t++) {
-        var stelle_piene = $('<i class="fas fa-star"></i>');
-      }
+
+    //per ogni stella piena disegno una stella piena
+    for (var s = 0; s < star; s++) {
+      stelle_disegnate += '<i class="fas fa-star"></i>';
     }
-    return stelle_piene
+
+    // per ogni stella vuota, disegno una stella vuota
+    for (var e = 0; e < empty_star; e++) {
+      stelle_vuote += '<i class="far fa-star"></i>';
+    }
+    //ritorno una stringa che comprende sia le stelle piene, che quelle vuote, per un totale di cinque stelle
+    return stelle_disegnate + stelle_vuote
   }
 });
