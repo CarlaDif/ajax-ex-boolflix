@@ -4,7 +4,7 @@ $(document).ready(function(){
     //leggo il valore del placeholder
     var titolo_film = $('#testo_ricerca').val();
     //effettuo la chiamata ajax e stampo il risultato della ricerca
-    chiamataAjax (titolo_film);
+    chiamataAjaxFilm (titolo_film);
     //resetto il valore dell'input
     $('#testo_ricerca').val('');
   });
@@ -14,13 +14,13 @@ $(document).ready(function(){
       //leggo il valore del placeholder
       var titolo_film = $(this).val();
       //effettuo la chiamata ajax e stampo il risultato della ricerca
-      chiamataAjax (titolo_film);
+      chiamataAjaxFilm (titolo_film);
       //resetto il valore dell'input
       $(this).val('');
     }
   });
 
-  function chiamataAjax (query) {
+  function chiamataAjaxFilm (query) {
     //richiamo la funzione ajax
     $.ajax ({
       'url': 'https://api.themoviedb.org/3/search/movie',
@@ -33,7 +33,6 @@ $(document).ready(function(){
       'success': function (data, stato, error){
         //visualizzo l'array "elenco_film", contenente gli oggetti "film"
         var elenco_film = data.results;
-        console.log(elenco_film);
         //resetto l'html prima di stampare i risultati del film cercato
         $('.schede-film').html('');
         stampaFilm(elenco_film);
@@ -54,28 +53,29 @@ $(document).ready(function(){
     for (var i = 0; i < elenco_film.length; i++) {
       var film = elenco_film[i];
       console.log(film);
-
-      if (film.original_language == 'en') {
-        film.original_language = 'gb';
-      } else if (film.original_language == 'ja') {
-        film.original_language = 'jp';
+      var lingua_originale = film.original_language;
+      //cambio alcune stringhe, in modo che corrispondano al codice-lingua di country flag
+      if (lingua_originale == 'en') {
+        lingua_originale = 'gb';
+      } else if (lingua_originale == 'ja') {
+        lingua_originale = 'jp';
+      } else if (lingua_originale == 'zh') {
+        lingua_originale = 'cn';
+      } else if (lingua_originale == 'ko') {
+        lingua_originale = 'kr';
       }
 
-      var locandina = film.poster_path;
       var film_context = {
         'titolo': film.title,
         'titolo_originale': film.original_title,
-        'data_lingua': film.original_language,
-        // 'lingua': flagLanguage(film.original_language),
+        'data_lingua': lingua_originale,
         'voto': film.vote_average,
         'stelle': votoInStelle(film.vote_average),
-        'poster': locandina
+        'poster': film.poster_path
       }
-
       var html = template_film(film_context);
       $('.schede-film').append(html);
     }
-
   }
   function votoInStelle (number) {
     //divido il voto per 2 e spitto il risultato,in modo da avere la cifra intera separata da quella decimale
@@ -113,24 +113,4 @@ $(document).ready(function(){
     //ritorno una stringa che comprende sia le stelle piene, che quelle vuote, per un totale di cinque stelle
     return stelle_disegnate + stelle_vuote
   }
-  // function flagLanguage (lingua) {
-  //   var flag = '';
-  //   switch (lingua) {
-  //     case 'en':
-  //       var data_lingua = en;
-  //       break;
-  //     // case 'it':
-  //     //   flag = '<img src="https://www.countryflags.io/' + lingua + '/flat/64.png">';
-  //     //   break;
-  //     // case 'es':
-  //     //   flag = '<img src="https://www.countryflags.io/' + lingua + '/flat/64.png">';
-  //     //   break;
-  //     // case 'ja':
-  //     // flag = '<img src="https://www.countryflags.io/' + lingua + '/flat/64.png">';
-  //     //   break;
-  //     default:
-  //     flag = '<span>non inserita</span>';
-  //   }
-  //   return flag
-  // }
 });
