@@ -30,19 +30,20 @@ $(document).ready(function(){
         'query': query,
         'language': 'it'
       },
-      'success': function (data, stato){
+      'success': function (data, stato, error){
         //visualizzo l'array "elenco_film", contenente gli oggetti "film"
         var elenco_film = data.results;
+        console.log(elenco_film);
         //resetto l'html prima di stampare i risultati del film cercato
         $('.schede-film').html('');
-        stampaFilm(elenco_film)
+        stampaFilm(elenco_film);
       },
       'error': function (){
         Swal.fire ({
           'type': 'error',
           'title': 'Oops...',
           'text': 'La ricerca non ha prodotto alcun risultato'
-        })
+        });
       }
     });
   }
@@ -52,13 +53,23 @@ $(document).ready(function(){
     //ciclo all'interno dell'array composto dagli oggetti/film
     for (var i = 0; i < elenco_film.length; i++) {
       var film = elenco_film[i];
+      console.log(film);
 
+      if (film.original_language == 'en') {
+        film.original_language = 'gb';
+      } else if (film.original_language == 'ja') {
+        film.original_language = 'jp';
+      }
+
+      var locandina = film.poster_path;
       var film_context = {
         'titolo': film.title,
         'titolo_originale': film.original_title,
-        'lingua': film.original_language,
+        'data_lingua': film.original_language,
+        // 'lingua': flagLanguage(film.original_language),
         'voto': film.vote_average,
-        'stelle': votoInStelle(film.vote_average)
+        'stelle': votoInStelle(film.vote_average),
+        'poster': locandina
       }
 
       var html = template_film(film_context);
@@ -102,4 +113,24 @@ $(document).ready(function(){
     //ritorno una stringa che comprende sia le stelle piene, che quelle vuote, per un totale di cinque stelle
     return stelle_disegnate + stelle_vuote
   }
+  // function flagLanguage (lingua) {
+  //   var flag = '';
+  //   switch (lingua) {
+  //     case 'en':
+  //       var data_lingua = en;
+  //       break;
+  //     // case 'it':
+  //     //   flag = '<img src="https://www.countryflags.io/' + lingua + '/flat/64.png">';
+  //     //   break;
+  //     // case 'es':
+  //     //   flag = '<img src="https://www.countryflags.io/' + lingua + '/flat/64.png">';
+  //     //   break;
+  //     // case 'ja':
+  //     // flag = '<img src="https://www.countryflags.io/' + lingua + '/flat/64.png">';
+  //     //   break;
+  //     default:
+  //     flag = '<span>non inserita</span>';
+  //   }
+  //   return flag
+  // }
 });

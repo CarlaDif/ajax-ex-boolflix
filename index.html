@@ -38,15 +38,18 @@
 
   <script src="main.js" charset="utf-8"></script>
   <script id="card-template" type="text/x-handlebars-template">
-    <div class="card-film">
+    <div class="card-film" style="background:{{poster}};">
       <h3>{{titolo}}</h3>
       <p>
         <span class="bold">Titolo originale: </span>
         <span>{{titolo_originale}}</span>
       </p>
       <p>
-        <span class="bold" data-lingua='{{lingua}}'>Lingua originale: </span>
-        <img src="img/{{lingua}}.png" alt="{{lingua}}">
+        <span id="linguaggio" class="bold" data-lingua="{{data-lingua}}">
+          <img src="https://www.countryflags.io/{{{data_lingua}}}/flat/64.png">
+          {{{lingua}}}
+        </span>
+        <!-- <img src="img/{{lingua}}.png" alt="{{lingua}}"> -->
       </p>
       <p>
         <span class="bold">Voto: </span>
