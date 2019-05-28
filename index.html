@@ -37,7 +37,30 @@
   </div>
 
   <script src="main.js" charset="utf-8"></script>
+  <!-- TEMPLATE - FILM -->
   <script id="card-template" type="text/x-handlebars-template">
+    <div class="card-film">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/w500/{{{poster}}}">
+      </div>
+      <h2>{{titolo}}</h2>
+      <div class="titoli-film">
+        <small>Titolo originale: </small>
+        <h4>{{titolo_originale}}</h4>
+      </div>
+      <div id="linguaggio">
+        <span>Lingua: </span>
+        <img src="https://www.countryflags.io/{{{data_lingua}}}/flat/24.png" alt="{{{data_lingua}}}">
+      </div>
+      <div class="valutazione">
+        <span>Voto: </span>
+        <span>{{voto}}</span>
+      </div>
+      <div class="stelle">{{{stelle}}}</div>
+    </div>
+  </script>
+  <!-- TEMPLATE - SERIE TV -->
+  <script id="serie-template" type="text/x-handlebars-template">
     <div class="card-film">
       <div class="poster">
         <img src="https://image.tmdb.org/t/p/w500/{{{poster}}}">

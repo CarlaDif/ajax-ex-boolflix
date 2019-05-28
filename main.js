@@ -4,7 +4,7 @@ $(document).ready(function(){
     //leggo il valore del placeholder
     var titolo_film = $('#testo_ricerca').val();
     //effettuo la chiamata ajax e stampo il risultato della ricerca
-    chiamataAjaxFilm (titolo_film);
+    chiamataAjax (titolo_film);
     //resetto il valore dell'input
     $('#testo_ricerca').val('');
   });
@@ -14,13 +14,37 @@ $(document).ready(function(){
       //leggo il valore del placeholder
       var titolo_film = $(this).val();
       //effettuo la chiamata ajax e stampo il risultato della ricerca
-      chiamataAjaxFilm (titolo_film);
+      chiamataAjax (titolo_film);
       //resetto il valore dell'input
       $(this).val('');
     }
   });
 
-  function chiamataAjaxFilm (query) {
+  function chiamataAjax (query) {
+    $('.schede-film').html('');
+    //richiamo la funzione ajax
+    $.ajax ({
+      'url': 'https://api.themoviedb.org/3/search/tv',
+      'method': 'GET',
+      'data': {
+        'api_key': 'a3de8b7adbae4fffc969329bd553724a',
+        'query': query,
+        'language': 'it'
+      },
+      'success': function (data, stato, error){
+        //visualizzo l'array "elenco_film", contenente gli oggetti "film"
+        var elenco_film = data.results;
+        //resetto l'html prima di stampare i risultati del film cercato
+        stampaFilm(elenco_film);
+      },
+      'error': function (){
+        Swal.fire ({
+          'type': 'error',
+          'title': 'Oops...',
+          'text': 'La ricerca non ha prodotto alcun risultato'
+        });
+      }
+    });
     //richiamo la funzione ajax
     $.ajax ({
       'url': 'https://api.themoviedb.org/3/search/movie',
@@ -33,8 +57,6 @@ $(document).ready(function(){
       'success': function (data, stato, error){
         //visualizzo l'array "elenco_film", contenente gli oggetti "film"
         var elenco_film = data.results;
-        //resetto l'html prima di stampare i risultati del film cercato
-        $('.schede-film').html('');
         stampaFilm(elenco_film);
       },
       'error': function (){
@@ -46,9 +68,15 @@ $(document).ready(function(){
       }
     });
   }
+  // function chiamataAjaxFilm (query) {
+  //
+  // }
   function stampaFilm (elenco_film) {
     var source = $("#card-template").html();
     var template_film = Handlebars.compile(source);
+
+    var sourceSerie = $("#serie-template").html();
+    var template_serie = Handlebars.compile(sourceSerie);
     //ciclo all'interno dell'array composto dagli oggetti/film
     for (var i = 0; i < elenco_film.length; i++) {
       var film = elenco_film[i];
@@ -71,9 +99,18 @@ $(document).ready(function(){
         'data_lingua': lingua_originale,
         'voto': film.vote_average,
         'stelle': votoInStelle(film.vote_average),
-        'poster': film.poster_path
+        'poster': film.poster_path,
+      }
+      var serie_context = {
+        'titolo': film.name,
+        'titolo_originale': film.original_title,
+        'data_lingua': lingua_originale,
+        'voto': film.vote_average,
+        'stelle': votoInStelle(film.vote_average),
+        'poster': film.poster_path,
       }
       var html = template_film(film_context);
+      var html = template_film(serie_context);
       $('.schede-film').append(html);
     }
   }
