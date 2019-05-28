@@ -40,9 +40,18 @@
   <script id="card-template" type="text/x-handlebars-template">
     <div class="card-film">
       <h3>{{titolo}}</h3>
-      <p><span class="bold">Titolo originale: </span>{{titolo_originale}}</p>
-      <p><span class="bold">Lingua originale: </span>{{lingua}}</p>
-      <p><span class="bold">Voto: </span>{{voto}}</p>
+      <p>
+        <span class="bold">Titolo originale: </span>
+        <span>{{titolo_originale}}</span>
+      </p>
+      <p>
+        <span class="bold" data-lingua='{{lingua}}'>Lingua originale: </span>
+        <img src="img/{{lingua}}.png" alt="{{lingua}}">
+      </p>
+      <p>
+        <span class="bold">Voto: </span>
+        <span>{{voto}}</span>
+      </p>
       <div class="stelle">{{{stelle}}}</div>
     </div>
   </script>

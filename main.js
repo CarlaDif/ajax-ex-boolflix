@@ -38,10 +38,10 @@ $(document).ready(function(){
         stampaFilm(elenco_film)
       },
       'error': function (){
-        Swal.fire({
-          type: 'error',
-          title: 'Oops...',
-          text: 'La ricerca non ha prodotto alcun risultato'
+        Swal.fire ({
+          'type': 'error',
+          'title': 'Oops...',
+          'text': 'La ricerca non ha prodotto alcun risultato'
         })
       }
     });
