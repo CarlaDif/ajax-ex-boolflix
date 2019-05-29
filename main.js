@@ -80,23 +80,12 @@ $(document).ready(function(){
     //ciclo all'interno dell'array composto dagli oggetti/film
     for (var i = 0; i < elenco_film.length; i++) {
       var film = elenco_film[i];
-      console.log(film);
       var lingua_originale = film.original_language;
-      //cambio alcune stringhe, in modo che corrispondano al codice-lingua di country flag
-      if (lingua_originale == 'en') {
-        lingua_originale = 'gb';
-      } else if (lingua_originale == 'ja') {
-        lingua_originale = 'jp';
-      } else if (lingua_originale == 'zh') {
-        lingua_originale = 'cn';
-      } else if (lingua_originale == 'ko') {
-        lingua_originale = 'kr';
-      }
 
       var film_context = {
         'titolo': film.title,
         'titolo_originale': film.original_title,
-        'data_lingua': lingua_originale,
+        'data_lingua': flagIcon(lingua_originale),
         'voto': film.vote_average,
         'stelle': votoInStelle(film.vote_average),
         'poster': film.poster_path,
@@ -104,11 +93,12 @@ $(document).ready(function(){
       var serie_context = {
         'titolo': film.name,
         'titolo_originale': film.original_title,
-        'data_lingua': lingua_originale,
+        'data_lingua': flagIcon(lingua_originale),
         'voto': film.vote_average,
         'stelle': votoInStelle(film.vote_average),
         'poster': film.poster_path,
       }
+
       var html = template_film(film_context);
       var html = template_film(serie_context);
       $('.schede-film').append(html);
@@ -149,5 +139,33 @@ $(document).ready(function(){
     }
     //ritorno una stringa che comprende sia le stelle piene, che quelle vuote, per un totale di cinque stelle
     return stelle_disegnate + stelle_vuote
+  }
+  function flagIcon (lingua) {
+    switch (lingua) {
+      case 'en':
+        lingua_originale = '<img src="https://www.countryflags.io/gb/flat/24.png">';
+        break;
+      case 'es':
+        lingua_originale = '<img src="https://www.countryflags.io/es/flat/24.png">';
+        break;
+      case 'it':
+        lingua_originale = '<img src="https://www.countryflags.io/it/flat/24.png">';
+        break;
+      case 'fr':
+        lingua_originale = '<img src="https://www.countryflags.io/fr/flat/24.png">';
+        break;
+      case 'ja':
+        lingua_originale = '<img src="https://www.countryflags.io/jp/flat/24.png">';
+        break;
+      case 'zh':
+        lingua_originale = '<img src="https://www.countryflags.io/cn/flat/24.png">';
+        break;
+      case 'ko':
+        lingua_originale = '<img src="https://www.countryflags.io/kr/flat/24.png">';
+        break;
+      default:
+        lingua_originale = '<span>' + lingua_originale + '</span>'
+    }
+    return lingua_originale
   }
 });

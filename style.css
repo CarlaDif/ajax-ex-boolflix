@@ -100,12 +100,12 @@ body {
   transform: translateX(-50%);
   border-radius: 5px;
 }
-#linguaggio {
+.linguaggio {
   width: 100%;
   height: 40px;
   position: relative;
 }
-#linguaggio img {
+.linguaggio img {
   position: absolute;
   top: 0;
   padding: 0 5px;
