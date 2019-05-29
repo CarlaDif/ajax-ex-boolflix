@@ -20,6 +20,15 @@ $(document).ready(function(){
     }
   });
 
+  //evento over card-film
+  $(document).on('mouseenter', '.card-film', function(){
+    $(this).find('.background-card').hide();
+    $(this).find('.info').show();
+  }).on('mouseleave', '.card-film', function(){
+    $('.card-film').find('.background-card').show();
+    $('.card-film').find('.info').hide();
+  });
+
   function chiamataAjax (query) {
     $('.schede-film').html('');
     //richiamo la funzione ajax
@@ -61,6 +70,7 @@ $(document).ready(function(){
       var tipo = film.media_type;
       var poster1 = film.poster_path;
       var poster2 = film.backdrop_path;
+      var trama = film.overview;
 
       if (tipo == 'tv') {
         titolo = film.name;
@@ -82,7 +92,8 @@ $(document).ready(function(){
         'lingua': flagIcon(lingua_originale),
         'stelle': votoInStelle(voto),
         'tipo': tipo,
-        'poster': poster(poster1, poster2)
+        'poster': poster(poster1, poster2),
+        'trama': trama
       }
 
       var html = template_film(film_context);
@@ -134,7 +145,7 @@ $(document).ready(function(){
         lingua = '<img src="https://www.countryflags.io/es/flat/24.png">';
         break;
       case 'it':
-        lingua_originale = '<img src="https://www.countryflags.io/it/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/it/flat/24.png">';
         break;
       case 'fr':
         lingua = '<img src="https://www.countryflags.io/fr/flat/24.png">';

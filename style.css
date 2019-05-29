@@ -75,15 +75,39 @@ body {
   border: 1px solid #000;
   border-radius: 5px;
   margin: 10px;
-  /* padding: 20px 10px; */
-  line-height: 150%;
   position: relative;
-  background-color: #333333;
+  background-color: #222222;
   color: #fff;
-  z-index: 1000;
+  cursor: pointer;
+  display: flex;
+  flex-flow: column;
 }
 .card-film .info {
+  width: 100%;
+  height: 100%;
+  padding: 20px 10px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
   display: none;
+}
+.titolo,
+.titolo_originale,
+.tipo,
+.lingua,
+.stelle {
+  width: 100%;
+  margin: 10px 0;
+  font-size: 15px;
+}
+.trama {
+  margin-top: 20px;
+  font-size: 12px;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 90px;
+  line-height: 18px;
 }
 .background-card.active {
   width: 100%;
@@ -98,11 +122,11 @@ body {
 }
 .background-card img {
   width: 100%;
+  height: 342px;
   border-radius: 5px;
   align-self: center;
 }
 .lingua {
-  width: 100%;
   height: 40px;
   position: relative;
 }
