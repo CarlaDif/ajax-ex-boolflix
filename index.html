@@ -40,43 +40,18 @@
   <!-- TEMPLATE - FILM -->
   <script id="card-template" type="text/x-handlebars-template">
     <div class="card-film">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/w500/{{{poster}}}">
+      <div class="titolo">
+        <strong>Titolo: </strong>
+        <p>{{titolo}}</p>
       </div>
-      <h2>{{titolo}}</h2>
-      <div class="titoli-film">
-        <small>Titolo originale: </small>
-        <h4>{{titolo_originale}}</h4>
+      <div class="titolo-originale">
+        <strong>Titolo originale: </strong>
+        <p>{{titolo_originale}}</p>
       </div>
-      <div class="linguaggio">
-        <span>Lingua: </span>
-        {{{data_lingua}}}
-      </div>
-      <div class="valutazione">
-        <span>Voto: </span>
-        <span>{{voto}}</span>
-      </div>
-      <div class="stelle">{{{stelle}}}</div>
-    </div>
-  </script>
-  <!-- TEMPLATE - SERIE TV -->
-  <script id="serie-template" type="text/x-handlebars-template">
-    <div class="card-film">
-      <div class="poster">
-        <img src="https://image.tmdb.org/t/p/w500/{{{poster}}}">
-      </div>
-      <h2>{{titolo}}</h2>
-      <div class="titoli-film">
-        <small>Titolo originale: </small>
-        <h4>{{titolo_originale}}</h4>
-      </div>
-      <div class="linguaggio">
-        <span>Lingua: </span>
-        {{{data_lingua}}}
-      </div>
-      <div class="valutazione">
-        <span>Voto: </span>
-        <span>{{voto}}</span>
+      <div><strong>Tipo: </strong>{{{tipo}}}</div>
+      <div class="lingua">
+        <strong>Lingua: </strong>
+        <span>{{{lingua}}}</span>
       </div>
       <div class="stelle">{{{stelle}}}</div>
     </div>

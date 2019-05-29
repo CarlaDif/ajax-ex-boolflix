@@ -24,7 +24,7 @@ $(document).ready(function(){
     $('.schede-film').html('');
     //richiamo la funzione ajax
     $.ajax ({
-      'url': 'https://api.themoviedb.org/3/search/tv',
+      'url': 'https://api.themoviedb.org/3/search/multi',
       'method': 'GET',
       'data': {
         'api_key': 'a3de8b7adbae4fffc969329bd553724a',
@@ -33,31 +33,8 @@ $(document).ready(function(){
       },
       'success': function (data, stato, error){
         //visualizzo l'array "elenco_film", contenente gli oggetti "film"
-        var elenco_film = data.results;
-        //resetto l'html prima di stampare i risultati del film cercato
-        stampaFilm(elenco_film);
-      },
-      'error': function (){
-        Swal.fire ({
-          'type': 'error',
-          'title': 'Oops...',
-          'text': 'La ricerca non ha prodotto alcun risultato'
-        });
-      }
-    });
-    //richiamo la funzione ajax
-    $.ajax ({
-      'url': 'https://api.themoviedb.org/3/search/movie',
-      'method': 'GET',
-      'data': {
-        'api_key': 'a3de8b7adbae4fffc969329bd553724a',
-        'query': query,
-        'language': 'it'
-      },
-      'success': function (data, stato, error){
-        //visualizzo l'array "elenco_film", contenente gli oggetti "film"
-        var elenco_film = data.results;
-        stampaFilm(elenco_film);
+        var elenco = data.results;
+        stampaFilm(elenco);
       },
       'error': function (){
         Swal.fire ({
@@ -68,39 +45,44 @@ $(document).ready(function(){
       }
     });
   }
-  // function chiamataAjaxFilm (query) {
-  //
-  // }
-  function stampaFilm (elenco_film) {
+  function stampaFilm (elenco) {
+
     var source = $("#card-template").html();
     var template_film = Handlebars.compile(source);
 
-    var sourceSerie = $("#serie-template").html();
-    var template_serie = Handlebars.compile(sourceSerie);
     //ciclo all'interno dell'array composto dagli oggetti/film
-    for (var i = 0; i < elenco_film.length; i++) {
-      var film = elenco_film[i];
-      var lingua_originale = film.original_language;
+    for (var i = 0; i < elenco.length; i++) {
+      var film = elenco[i];
+
+      var titolo;
+      var titolo_originale;
+      var lingua_originale;
+      var voto;
+      var tipo = film.media_type;
+
+      if (tipo == 'tv') {
+        titolo = film.name;
+        titolo_originale = film.original_name;
+        lingua_originale = film.original_language;
+        voto = film.vote_average;
+        tipo = 'Serie TV';
+      } else if (tipo == 'movie') {
+        titolo = film.title;
+        titolo_originale = film.original_title;
+        lingua_originale = film.original_language;
+        voto = film.vote_average;
+        tipo = 'Movie';
+      }
 
       var film_context = {
-        'titolo': film.title,
-        'titolo_originale': film.original_title,
-        'data_lingua': flagIcon(lingua_originale),
-        'voto': film.vote_average,
-        'stelle': votoInStelle(film.vote_average),
-        'poster': film.poster_path,
-      }
-      var serie_context = {
-        'titolo': film.name,
-        'titolo_originale': film.original_title,
-        'data_lingua': flagIcon(lingua_originale),
-        'voto': film.vote_average,
-        'stelle': votoInStelle(film.vote_average),
-        'poster': film.poster_path,
+        'titolo': titolo,
+        'titolo_originale': titolo_originale,
+        'lingua': flagIcon(lingua_originale),
+        'stelle': votoInStelle(voto),
+        'tipo': tipo
       }
 
       var html = template_film(film_context);
-      var html = template_film(serie_context);
       $('.schede-film').append(html);
     }
   }
@@ -143,29 +125,29 @@ $(document).ready(function(){
   function flagIcon (lingua) {
     switch (lingua) {
       case 'en':
-        lingua_originale = '<img src="https://www.countryflags.io/gb/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/gb/flat/24.png">';
         break;
       case 'es':
-        lingua_originale = '<img src="https://www.countryflags.io/es/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/es/flat/24.png">';
         break;
       case 'it':
         lingua_originale = '<img src="https://www.countryflags.io/it/flat/24.png">';
         break;
       case 'fr':
-        lingua_originale = '<img src="https://www.countryflags.io/fr/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/fr/flat/24.png">';
         break;
       case 'ja':
-        lingua_originale = '<img src="https://www.countryflags.io/jp/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/jp/flat/24.png">';
         break;
       case 'zh':
-        lingua_originale = '<img src="https://www.countryflags.io/cn/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/cn/flat/24.png">';
         break;
       case 'ko':
-        lingua_originale = '<img src="https://www.countryflags.io/kr/flat/24.png">';
+        lingua = '<img src="https://www.countryflags.io/kr/flat/24.png">';
         break;
       default:
-        lingua_originale = '<span>' + lingua_originale + '</span>'
+        lingua = '<span>' + lingua + '</span>'
     }
-    return lingua_originale
+    return lingua
   }
 });

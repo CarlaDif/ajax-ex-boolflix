@@ -71,7 +71,7 @@ body {
 }
 .card-film {
   width: 250px;
-  height: 400px;
+  height: 300px;
   border: 1px solid #000;
   border-radius: 5px;
   margin: 10px;
@@ -81,31 +81,12 @@ body {
   background-color: #333333;
   color: #fff;
 }
-.card-film h2 {
-  margin: 20px 0;
-}
-.card-film p {
-  font-size: 16px;
-}
-.card-film .poster {
-  width: 100%;
-  height: 150px;
-}
-.poster img {
-  position: absolute;
-  width: auto;
-  height: 150px;;
-  top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-radius: 5px;
-}
-.linguaggio {
+.lingua {
   width: 100%;
   height: 40px;
   position: relative;
 }
-.linguaggio img {
+.lingua img {
   position: absolute;
   top: 0;
   padding: 0 5px;
