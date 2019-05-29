@@ -94,6 +94,7 @@ body {
   border-radius: 5px;
   overflow: hidden;
   display: flex;
+  justify-content: space-around;
 }
 .background-card img {
   width: 100%;

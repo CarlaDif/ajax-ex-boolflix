@@ -155,16 +155,17 @@ $(document).ready(function(){
   }
   function poster (poster1, poster2) {
 
-    var urlBase = '<img src="https://image.tmdb.org/t/p/';
-    
-    var dimensioniImg = 'w342';
+    var url_base = '<img src="https://image.tmdb.org/t/p/';
 
-    var locandina =  urlBase + dimensioniImg + poster1 + '">';
+    var dimensioni_poster1 = 'w342';
+    var dimensioni_poster2 = 'w300';
 
-    if (poster1 == 'undefined') {
-      locandina = urlBase + dimensioniImg + poster2 + '">';
-    } else if (!poster1 && !poster2) {
-      locandina = '<img src="http://ati-psychology.co.uk/app/webroot/img/no-image/no_image_available.jpg">';
+    var locandina =  url_base + dimensioni_poster1 + poster1 + '">';
+    var locandina_alternativa = url_base + dimensioni_poster2 + poster2 + '">';
+    var immagine_non_disponibile = '<img src="http://www.cinebowl.co.uk/images/films/image_medium/noimage-medium.jpg">';
+
+    if (poster1 == null || poster1 == 'undefined') {
+      locandina = immagine_non_disponibile;
     }
     return locandina
   }
