@@ -40,20 +40,23 @@
   <!-- TEMPLATE - FILM -->
   <script id="card-template" type="text/x-handlebars-template">
     <div class="card-film">
-      <div class="titolo">
-        <strong>Titolo: </strong>
-        <p>{{titolo}}</p>
+      <div class="background-card active">{{{poster}}}</div>
+      <div class="info">
+        <div class="titolo">
+          <strong>Titolo: </strong>
+          <p>{{titolo}}</p>
+        </div>
+        <div class="titolo-originale">
+          <strong>Titolo originale: </strong>
+          <p>{{titolo_originale}}</p>
+        </div>
+        <div><strong>Tipo: </strong>{{{tipo}}}</div>
+        <div class="lingua">
+          <strong>Lingua: </strong>
+          <span>{{{lingua}}}</span>
+        </div>
+        <div class="stelle">{{{stelle}}}</div>
       </div>
-      <div class="titolo-originale">
-        <strong>Titolo originale: </strong>
-        <p>{{titolo_originale}}</p>
-      </div>
-      <div><strong>Tipo: </strong>{{{tipo}}}</div>
-      <div class="lingua">
-        <strong>Lingua: </strong>
-        <span>{{{lingua}}}</span>
-      </div>
-      <div class="stelle">{{{stelle}}}</div>
     </div>
   </script>
   </body>

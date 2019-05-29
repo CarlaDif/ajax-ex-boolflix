@@ -59,6 +59,8 @@ $(document).ready(function(){
       var lingua_originale;
       var voto;
       var tipo = film.media_type;
+      var poster1 = film.poster_path;
+      var poster2 = film.backdrop_path;
 
       if (tipo == 'tv') {
         titolo = film.name;
@@ -79,7 +81,8 @@ $(document).ready(function(){
         'titolo_originale': titolo_originale,
         'lingua': flagIcon(lingua_originale),
         'stelle': votoInStelle(voto),
-        'tipo': tipo
+        'tipo': tipo,
+        'poster': poster(poster1, poster2)
       }
 
       var html = template_film(film_context);
@@ -149,5 +152,20 @@ $(document).ready(function(){
         lingua = '<span>' + lingua + '</span>'
     }
     return lingua
+  }
+  function poster (poster1, poster2) {
+
+    var urlBase = '<img src="https://image.tmdb.org/t/p/';
+    
+    var dimensioniImg = 'w342';
+
+    var locandina =  urlBase + dimensioniImg + poster1 + '">';
+
+    if (poster1 == 'undefined') {
+      locandina = urlBase + dimensioniImg + poster2 + '">';
+    } else if (!poster1 && !poster2) {
+      locandina = '<img src="http://ati-psychology.co.uk/app/webroot/img/no-image/no_image_available.jpg">';
+    }
+    return locandina
   }
 });
