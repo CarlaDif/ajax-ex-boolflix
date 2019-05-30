@@ -21,7 +21,7 @@ $(document).ready(function(){
   });
 
   //evento over card-film
-  $(document).on('mouseenter', '.card-film', function(){
+  $('.schede-film').on('mouseenter', '.card-film', function(){
     $(this).find('.background-card').hide();
     $(this).find('.info').show();
   }).on('mouseleave', '.card-film', function(){
@@ -33,30 +33,27 @@ $(document).ready(function(){
     $('.schede-film').html('');
     //richiamo la funzione ajax
     $.ajax ({
-      'url': 'https://api.themoviedb.org/3/search/multi',
-      'method': 'GET',
-      'data': {
-        'api_key': 'a3de8b7adbae4fffc969329bd553724a',
-        'query': query,
-        'language': 'it'
+      url: 'https://api.themoviedb.org/3/search/multi',
+      method: 'GET',
+      data: {
+        api_key: 'a3de8b7adbae4fffc969329bd553724a',
+        query: query,
+        language: 'it'
       },
-      'success': function (data, stato, error){
+      success: function (data, stato, error){
         //visualizzo l'array "elenco_film", contenente gli oggetti "film"
-        var elenco = data.results;
-        stampaFilm(elenco);
+        stampaFilm(data.results);
       },
-      'error': function (){
+      error: function (){
         Swal.fire ({
-          'type': 'error',
-          'title': 'Oops...',
-          'text': 'La ricerca non ha prodotto alcun risultato'
+          type: 'error',
+          title: 'Oops...',
+          text: 'La ricerca non ha prodotto alcun risultato'
         });
       }
     });
   }
   function stampaFilm (elenco) {
-    console.log(id_genere);
-
     var source = $("#card-template").html();
     var template_film = Handlebars.compile(source);
 
@@ -72,39 +69,40 @@ $(document).ready(function(){
       var poster1 = film.poster_path;
       var poster2 = film.backdrop_path;
       var trama = film.overview;
-      var id_genere = film.genre_ids;
       var id_film = film.id;
+      var id_genere_film = film.genre_ids;
 
       if (tipo == 'tv') {
-        id = id_genere;
+        id_film = film.id,
         titolo = film.name;
         titolo_originale = film.original_name;
         lingua_originale = film.original_language;
         voto = film.vote_average;
-        tipo = 'Serie TV';
+        testo_tipo = 'Serie TV';
       } else if (tipo == 'movie') {
-        id = id_genere;
+        id_film = film.id,
         titolo = film.title;
         titolo_originale = film.original_title;
         lingua_originale = film.original_language;
         voto = film.vote_average;
-        tipo = 'Movie';
+        testo_tipo = 'Movie';
       }
 
       var film_context = {
-        'id': id,
-        'titolo': titolo,
-        'titolo_originale': titolo_originale,
-        'lingua': flagIcon(lingua_originale),
-        'stelle': votoInStelle(voto),
-        'tipo': tipo,
-        'poster': poster(poster1, poster2),
-        'trama': trama
+        id: id_film,
+        titolo: titolo,
+        titolo_originale: titolo_originale,
+        lingua: flagIcon(lingua_originale),
+        stelle: votoInStelle(voto),
+        testo_tipo: testo_tipo,
+        poster: poster(poster1, poster2),
+        trama: trama,
+        genere: stampa_genere_film (id_film, tipo)
       }
-      // console.log(id);
 
       var html = template_film(film_context);
       $('.schede-film').append(html);
+
     }
 
     $('.tipo').each(function(){
@@ -196,26 +194,40 @@ $(document).ready(function(){
   }
 
   //https://api.themoviedb.org/3/movie/35?api_key=a3de8b7adbae4fffc969329bd553724a&language=it
-  function stampa_genere_film () {
+  function stampa_genere_film (id_film, tipo) {
+    var _url = 'movie';
+      if (tipo == 'tv') {
+        _url = 'tv';
+      }
     $.ajax ({
-      'url': 'https://api.themoviedb.org/3/movie/',
-      'method': 'GET',
-      'path': {
-        'movie_id': 35
+      url: 'https://api.themoviedb.org/3/' + _url + '/' + id_film,
+      method: 'GET',
+      data: {
+        api_key: 'a3de8b7adbae4fffc969329bd553724a',
+        language: 'it'
       },
-      'data': {
-        'api_key': 'a3de8b7adbae4fffc969329bd553724a',
-        'language': 'it'
+      success: function (data, stato, error){
+        var array_generi = data.genres;
+
+        var stringa_generi = '';
+
+        for (var i = 0; i < array_generi.length; i++) {
+          var oggetto_genere = array_generi[i];
+
+          for (var field in oggetto_genere) {
+            var nome = oggetto_genere.name;
+            if (!stringa_generi.includes(nome)) {
+              stringa_generi +=  ' ' + nome;
+            }
+          }
+        }
+
+      console.log(stringa_generi);
       },
-      'success': function (data, stato, error){
-        //visualizzo l'array "elenco_film", contenente gli oggetti "film"
-        var elenco_id = data.results;
-        console.log(elenco_id);
-      },
-      'error': function (){
+      error: function (){
         console.log('error');
       }
     });
   }
-  stampa_genere_film ();
+
 });
