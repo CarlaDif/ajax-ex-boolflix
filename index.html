@@ -12,7 +12,7 @@
     <!-- FONT-AWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- GOOGLE-FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat:300,400&display=swap" rel="stylesheet">
     <!-- STYLE CCS -->
     <link rel="stylesheet" href="style.css">
   </head>
@@ -44,21 +44,22 @@
       <div class="info">
         <div class="titolo">
           <strong>Titolo: </strong>
-          <span>{{titolo}}</span>
+          <span>{{ titolo }}</span>
         </div>
         <div class="titolo-originale">
           <strong>Titolo originale: </strong>
-          <span>{{titolo_originale}}</span>
+          <span>{{ titolo_originale }}</span>
         </div>
         <div class="tipo">
-          <strong>Tipo: </strong>{{{tipo}}}
+          <strong>Tipo: </strong>
+          <span>{{{ tipo }}}</span>
         </div>
         <div class="lingua">
           <strong>Lingua: </strong>
-          <span>{{{lingua}}}</span>
+          <span>{{{ lingua }}}</span>
         </div>
-        <div class="stelle">{{{stelle}}}</div>
-        <div class="trama">{{{trama}}}</div>
+        <div class="stelle">{{{ stelle }}}</div>
+        <div class="trama">{{{ trama }}}</div>
       </div>
     </div>
   </script>

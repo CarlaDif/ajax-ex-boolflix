@@ -6,6 +6,7 @@
 body {
   font-family: sans-serif;
   background-color: #010101;
+  font-family: 'Montserrat', sans-serif;
 }
 .header {
   width: 100%;
@@ -70,48 +71,22 @@ body {
   justify-content: flex-start;
 }
 .card-film {
-  width: 250px;
-  height: 342px;
+  width: 200px;
+  height: 290px;
   border: 1px solid #000;
   border-radius: 5px;
-  margin: 10px;
+  margin: 10px 5px;
   position: relative;
   background-color: #222222;
   color: #fff;
   cursor: pointer;
   display: flex;
   flex-flow: column;
+  font-size: 14px;
 }
-.card-film .info {
+.background-card {
   width: 100%;
   height: 100%;
-  padding: 20px 10px;
-  display: flex;
-  flex-flow: column;
-  justify-content: space-around;
-  display: none;
-}
-.titolo,
-.titolo_originale,
-.tipo,
-.lingua,
-.stelle {
-  width: 100%;
-  margin: 10px 0;
-  font-size: 15px;
-}
-.trama {
-  margin-top: 20px;
-  font-size: 12px;
-  display: block;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-height: 90px;
-  line-height: 18px;
-}
-.background-card.active {
-  width: 100%;
-  height: 342px;
   position: absolute;
   top: 0;
   left: 0;
@@ -122,16 +97,47 @@ body {
 }
 .background-card img {
   width: 100%;
-  height: 342px;
+  height: 290px;
   border-radius: 5px;
   align-self: center;
 }
+.card-film .info {
+  width: 100%;
+  height: 290px;
+  padding: 10px 5px;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-around;
+  display: none;
+}
+.info span {
+  font-weight: lighter;
+}
+.titolo,
+.titolo-originale,
+.tipo,
+.lingua,
+.stelle {
+  width: 100%;
+  /* border: 1px solid yellow; */
+}
+.trama {
+  margin-top: 15px;
+  font-size: 12px;
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 108px;
+  line-height: 18px;
+}
 .lingua {
-  height: 40px;
+  height: 24px;
   position: relative;
 }
 .lingua img {
   position: absolute;
+  width: auto;
+  height: 24px;
   top: 0;
   padding: 0 5px;
 }

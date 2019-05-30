@@ -72,6 +72,8 @@ $(document).ready(function(){
       var poster2 = film.backdrop_path;
       var trama = film.overview;
 
+      console.log(tipo);
+
       if (tipo == 'tv') {
         titolo = film.name;
         titolo_originale = film.original_name;
@@ -99,6 +101,14 @@ $(document).ready(function(){
       var html = template_film(film_context);
       $('.schede-film').append(html);
     }
+
+    $('.tipo').each(function(){
+      var text_tipo = $(this).find('span').text();
+      if (text_tipo == 'person') {
+        $(this).closest('.card-film').hide();
+      }
+    });
+
   }
   function votoInStelle (number) {
     //divido il voto per 2 e spitto il risultato,in modo da avere la cifra intera separata da quella decimale
