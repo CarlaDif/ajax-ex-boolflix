@@ -55,6 +55,7 @@ $(document).ready(function(){
     });
   }
   function stampaFilm (elenco) {
+    console.log(id_genere);
 
     var source = $("#card-template").html();
     var template_film = Handlebars.compile(source);
@@ -71,16 +72,18 @@ $(document).ready(function(){
       var poster1 = film.poster_path;
       var poster2 = film.backdrop_path;
       var trama = film.overview;
-
-      console.log(tipo);
+      var id_genere = film.genre_ids;
+      var id_film = film.id;
 
       if (tipo == 'tv') {
+        id = id_genere;
         titolo = film.name;
         titolo_originale = film.original_name;
         lingua_originale = film.original_language;
         voto = film.vote_average;
         tipo = 'Serie TV';
       } else if (tipo == 'movie') {
+        id = id_genere;
         titolo = film.title;
         titolo_originale = film.original_title;
         lingua_originale = film.original_language;
@@ -89,6 +92,7 @@ $(document).ready(function(){
       }
 
       var film_context = {
+        'id': id,
         'titolo': titolo,
         'titolo_originale': titolo_originale,
         'lingua': flagIcon(lingua_originale),
@@ -97,6 +101,7 @@ $(document).ready(function(){
         'poster': poster(poster1, poster2),
         'trama': trama
       }
+      // console.log(id);
 
       var html = template_film(film_context);
       $('.schede-film').append(html);
@@ -108,7 +113,6 @@ $(document).ready(function(){
         $(this).closest('.card-film').hide();
       }
     });
-
   }
   function votoInStelle (number) {
     //divido il voto per 2 e spitto il risultato,in modo da avere la cifra intera separata da quella decimale
@@ -190,4 +194,28 @@ $(document).ready(function(){
     }
     return locandina
   }
+
+  //https://api.themoviedb.org/3/movie/35?api_key=a3de8b7adbae4fffc969329bd553724a&language=it
+  function stampa_genere_film () {
+    $.ajax ({
+      'url': 'https://api.themoviedb.org/3/movie/',
+      'method': 'GET',
+      'path': {
+        'movie_id': 35
+      },
+      'data': {
+        'api_key': 'a3de8b7adbae4fffc969329bd553724a',
+        'language': 'it'
+      },
+      'success': function (data, stato, error){
+        //visualizzo l'array "elenco_film", contenente gli oggetti "film"
+        var elenco_id = data.results;
+        console.log(elenco_id);
+      },
+      'error': function (){
+        console.log('error');
+      }
+    });
+  }
+  stampa_genere_film ();
 });
