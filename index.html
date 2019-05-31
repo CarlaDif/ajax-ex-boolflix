@@ -12,7 +12,7 @@
     <!-- FONT-AWESOME -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- GOOGLE-FONT -->
-    <link href="https://fonts.googleapis.com/css?family=Anton|Montserrat:300,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Anton|Roboto:300,400&display=swap" rel="stylesheet">
     <!-- STYLE CCS -->
     <link rel="stylesheet" href="style.css">
   </head>
@@ -42,29 +42,41 @@
     <div class="card-film">
       <div class="background-card">{{{poster}}}</div>
       <div class="info">
-        <div class="titolo">
-          <strong>Titolo: </strong>
-          <span>{{ titolo }}</span>
+        <div class="box-superiore">
+          <div class="titolo">
+            <strong>Titolo: </strong>
+            <span>{{ titolo }}</span>
+          </div>
+          <div class="titolo-originale">
+            <strong>Titolo originale: </strong>
+            <span>{{ titolo_originale }}</span>
+          </div>
+          <div class="tipo">
+            <strong>Tipo: </strong>
+            <span>{{{ testo_tipo }}}</span>
+          </div>
+          <div class="genere"  data-genere="{{ id_film }}">
+            <strong>Genere: </strong>
+            <span class="generi-film"></span>
+          </div>
+          <div class="cast" data-cast="{{ id_film }}">
+            <strong>Cast: </strong>
+            <span class="cast-film"></span>
+          </div>
+          <div class="lingua">
+            <strong>Lingua: </strong>
+            <span>{{{ lingua }}}</span>
+          </div>
+          <div class="stelle"><strong>Voto: </strong>{{{ stelle }}}</div>
         </div>
-        <div class="titolo-originale">
-          <strong>Titolo originale: </strong>
-          <span>{{ titolo_originale }}</span>
+        <div class="box-trama">
+          <div class="trama">
+            <strong>Trama: </strong>
+            {{{ trama }}}
+          </div>
         </div>
-        <div class="tipo">
-          <strong>Tipo: </strong>
-          <span>{{{ testo_tipo }}}</span>
-        </div>
-        <div class="genere" data-genere="{{ id_film }}">
-          <strong>Genere: </strong>
-          <span></span>
-        </div>
-        <div class="lingua">
-          <strong>Lingua: </strong>
-          <span>{{{ lingua }}}</span>
-        </div>
-        <div class="stelle">{{{ stelle }}}</div>
-        <div class="trama">{{{ trama }}}</div>
       </div>
+
     </div>
   </script>
   </body>
