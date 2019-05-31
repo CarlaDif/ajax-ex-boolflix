@@ -61,16 +61,14 @@ $(document).ready(function(){
     for (var i = 0; i < elenco.length; i++) {
       var film = elenco[i];
 
-      var titolo;
-      var titolo_originale;
-      var lingua_originale;
-      var voto;
+      var titolo, titolo_originale, lingua_originale, voto;
       var tipo = film.media_type;
       var poster1 = film.poster_path;
       var poster2 = film.backdrop_path;
       var trama = film.overview;
       var id_film = film.id;
       var id_genere_film = film.genre_ids;
+      var genere_film = stampa_genere_film(id_film, tipo);
 
       if (tipo == 'tv') {
         id_film = film.id,
@@ -97,12 +95,14 @@ $(document).ready(function(){
         testo_tipo: testo_tipo,
         poster: poster(poster1, poster2),
         trama: trama,
-        genere: stampa_genere_film (id_film, tipo)
+        id_film: id_film
       }
 
       var html = template_film(film_context);
       $('.schede-film').append(html);
 
+      //richiamo la funzione stampa genere
+      stampa_genere_film (id_film, tipo)
     }
 
     $('.tipo').each(function(){
@@ -192,13 +192,13 @@ $(document).ready(function(){
     }
     return locandina
   }
-
-  //https://api.themoviedb.org/3/movie/35?api_key=a3de8b7adbae4fffc969329bd553724a&language=it
   function stampa_genere_film (id_film, tipo) {
     var _url = 'movie';
+
       if (tipo == 'tv') {
         _url = 'tv';
       }
+
     $.ajax ({
       url: 'https://api.themoviedb.org/3/' + _url + '/' + id_film,
       method: 'GET',
@@ -206,28 +206,38 @@ $(document).ready(function(){
         api_key: 'a3de8b7adbae4fffc969329bd553724a',
         language: 'it'
       },
-      success: function (data, stato, error){
+      success: function (data, stato, error) {
+        //richiamo l'array che mi restituisce tutti gli oggetti "genere" contenuti all'intenro di un film o di una serie tv
         var array_generi = data.genres;
-
         var stringa_generi = '';
 
+        //ciclo all'interno dell'array generi
         for (var i = 0; i < array_generi.length; i++) {
+          var nomi = [];
+          //definisco ogni singolo oggetto
+
           var oggetto_genere = array_generi[i];
 
-          for (var field in oggetto_genere) {
-            var nome = oggetto_genere.name;
-            if (!stringa_generi.includes(nome)) {
-              stringa_generi +=  ' ' + nome;
-            }
+          var posizione_elemento_array = array_generi.indexOf(oggetto_genere);
+
+          if (posizione_elemento_array === (array_generi.length -1)) {
+            stringa_generi += oggetto_genere.name;
+          } else {
+            stringa_generi += oggetto_genere.name + ', ';
           }
+
         }
 
-      console.log(stringa_generi);
+      //recupero il div genere con l'id film data-genere == id_film
+
+      $('.genere[data-genere="'+ id_film +'"]').children('span').text(stringa_generi);
+
       },
       error: function (){
         console.log('error');
       }
     });
+
   }
 
 });
