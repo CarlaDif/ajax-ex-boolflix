@@ -291,7 +291,7 @@ $(document).ready(function(){
           //se i è minore della lunghezza dell'array (meno l'ultimo elemento) e se i è minore di 4
           if (i < array_cast.length -1 && i < 4) {
             stringa_cast += oggetto_cast.name + ', ';
-          } else if (i == 0 || i == 4 && i < array_cast.length ) {
+          } else if (i === 0 || i === 4 && i < array_cast.length ) {
             stringa_cast += oggetto_cast.name;
           }
 

@@ -51,11 +51,13 @@ body {
 #cerca {
   height: 40px;
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: 5px;
   border: none;
 }
 #cerca {
-  color: #000;
+  color: #FFF;
+  font-weight: bold;
+  border-radius: 5px;
   background-color:  #E50914;
 }
 .container {
@@ -112,11 +114,33 @@ body {
 }
 .info .box-superiore {
   width: 100%;
+  max-height: 84%;
+  border: 1px solid red;
 }
 .info .box-trama {
-  width: 100%;
-  max-height: 10%;
+  width: calc(200px -10px);
+  max-height: calc(15px * 3);
+  /* overflow: hidden; */
+  border: 1px solid yellow;
+
+}
+.box-trama .trama {
+  /* max-height: calc(15px * 3);
+  line-height: 15px;
+  display: block;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis; */
+
+
+  /* WEBKIT-BOX */
+  line-height: 15px;
+
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .info span {
   font-weight: lighter;
